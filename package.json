@@ -1,0 +1,23 @@
+{
+  "name": "status-checks-example",
+  "version": "1.0.0",
+  "description": "Exploring GitHub's Status Checks.",
+  "main": "index.js",
+  "scripts": {
+    "test:unit": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imjasonmiller/status-checks-example.git"
+  },
+  "author": "Jason Miller, <contact@jasonmiller.nl>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/imjasonmiller/status-checks-example/issues"
+  },
+  "homepage": "https://github.com/imjasonmiller/status-checks-example#readme",
+  "dependencies": {
+    "vitest": "^0.31.0"
+  }
+}
