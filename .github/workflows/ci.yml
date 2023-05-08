@@ -25,4 +25,4 @@ jobs:
           node-version: 18.10
 
       - name: "Test"
-        run: echo "Hello universe!"
+        run: npm run test:unit
