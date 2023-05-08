@@ -1,0 +1,29 @@
+name: Example checks 
+
+run-name: Running checks
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+  workflow_call:
+
+jobs:
+  test:
+    name: Test application
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.10
+
+      - name: "Test"
+        run: echo "Hello universe!"
