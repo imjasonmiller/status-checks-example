@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: "Ensure branch targets development"
-        if: ${{ github.base_ref !== 'development' }}
+        if: ${{ github.base_ref != 'development' }}
         run: exit 0
         
       - name: "Checkout repository"
