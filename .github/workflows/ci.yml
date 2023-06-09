@@ -38,7 +38,7 @@ jobs:
         id: generator
         with:
           script: |
-            const script = require(`${process.env.GITHUB_WORKSPACE}/generateBuildMatrix.js`)
+            const script = require(`${process.env.GITHUB_WORKSPACE}/ci/generateBuildMatrix.js`)
             return script(
               ${{ steps.diff.outputs.added_files }},
               ${{ steps.diff.outputs.modified_files }},
