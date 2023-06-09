@@ -11,13 +11,52 @@ on:
   workflow_call:
 
 jobs:
+  generate-matrix:
+    name: Generate matrix
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+
+      - name: Get changed clients
+        id: diff
+        uses: tj-actions/changed-files@v36
+        with:
+          files: apps
+          dir_names: true
+          dir_names_exclude_current_dir: true
+          json: true
+          escape_json: false
+
+      - name: Generate testing matrix
+        uses: actions/github-script@v6
+        id: generator
+        with:
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/ci/generateBuildMatrix.js`)
+            return script(
+              ${{ steps.diff.outputs.added_files }},
+              ${{ steps.diff.outputs.modified_files }},
+              ${{ steps.diff.outputs.renamed_files }},
+            );
+
+    outputs:
+      matrix: ${{ steps.generator.outputs.result }}
+
   test:
+    needs: generate-matrix
     name: Tests 
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: "Setup node"
         uses: actions/setup-node@v3
@@ -26,6 +65,9 @@ jobs:
 
       - name: "Install"
         run: npm ci
+
+      - name: "Example of an app specific step"
+        run: echo "${{ matrix.name }}"
 
       - name: "Unit test"
         run: npm run test:unit
