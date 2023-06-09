@@ -11,20 +11,15 @@ on:
   workflow_call:
 
 jobs:
-  test:
-    name: Tests 
+  generate-matrix:
+    name: Generate matrix
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v3
 
-      - name: "Setup node"
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.10
-
-      - name: Get changed applications
+      - name: Get changed clients
         id: diff
         uses: tj-actions/changed-files@v36
         with:
@@ -45,9 +40,30 @@ jobs:
               ${{ steps.diff.outputs.modified_files }},
               ${{ steps.diff.outputs.renamed_files }},
             );
+  test:
+    needs: generate-matrix
+    name: Tests 
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+
+      - name: "Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.10
 
       - name: "Install"
         run: npm ci
+
+      - name: "Example of an app specific step"
+        run: echo ${{ matrix.name }}
 
       - name: "Unit test"
         run: npm run test:unit

@@ -14,7 +14,7 @@ const getAffectedClients = (filesAdded, filesModified, filesRenamed) => {
 
       return files.has(path.join('apps', dirent.name));
     })
-    .map((dirent) => dirent.name);
+    .map((dirent) => ({ app: dirent.name }));
 
   return clients;
 };
