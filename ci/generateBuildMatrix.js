@@ -1,9 +1,30 @@
+"use strict";
+
+const path = require('path');
+const fs = require('fs');
+
+const getAffectedClients = (filesAdded, filesModified, filesRenamed) => {
+  const files = new Set([...filesAdded, ...filesModified, ...filesRenamed]);
+  const clients = fs
+    .readdirSync(path.resolve(__dirname, 'apps'), { withFileTypes: true })
+    .filter((dirent) => {
+      if (!dirent.isDirectory()) {
+        return;
+      }
+
+      return files.has(path.join('apps', dirent.name));
+    })
+    .map((dirent) => dirent.name);
+
+  return clients;
+};
+
 const generateBuildMatrix = (filesAdded, filesModified, filesRenamed) => {
-  console.log("filesAdded:", filesAdded, "filesModified:", filesModified, "filesRenamed:", filesRenamed);
+  const clients = getAffectedClients(filesAdded, filesModified, filesRenamed);
 
-  const clients = [];
-
-  return null;
+  return clients.length 
+    ? { include: clients }
+    : null;
 };
 
 module.exports = generateBuildMatrix;
