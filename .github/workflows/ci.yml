@@ -24,6 +24,27 @@ jobs:
         with:
           node-version: 18.10
 
+      - name: Get changed files
+        id: diff
+        uses: tj-actions/changed-files@v36
+        with:
+          dir_names: true
+          dir_names_exclude_current_dir: true
+          json: true
+
+      - name: Generate testing matrix
+        uses: actions/github-script@v6
+        id: generator
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/generateBuildMatrix.js`)
+            return script(
+              ${{ steps.diff.outputs.added_files }},
+              ${{ steps.diff.outputs.modified_files }},
+              ${{ steps.diff.outputs.renamed_files }},
+            );
+
       - name: "Install"
         run: npm ci
 
