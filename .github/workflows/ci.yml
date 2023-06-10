@@ -67,8 +67,8 @@ jobs:
         run: npm ci
 
       - name: "Unit test"
-        run: npm run test:unit --workspace=${{ matrix.name }}
+        run: npm run test:unit --workspace ${{ matrix.app }}
 
       - name: "Build application"
-        run: npm run build --workspace=${{ matrix.name }}
+        run: npm run build --workspace ${{ matrix.app }}
 
