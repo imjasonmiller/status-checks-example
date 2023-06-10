@@ -1,3 +1,3 @@
-const mul = (a: number, b: number): number => {
-  return a * b + a;
+export const mul = (a: number, b: number): number => {
+  return a * b;
 }

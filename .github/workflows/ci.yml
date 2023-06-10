@@ -66,8 +66,9 @@ jobs:
       - name: "Install"
         run: npm ci
 
-      - name: "Example of an app specific step"
-        run: echo "${{ matrix.name }}"
-
       - name: "Unit test"
-        run: npm run test:unit
+        run: npm run test:unit --workspace=${{ matrix.name }}
+
+      - name: "Build application"
+        run: npm run build --workspace=${{ matrix.name }}
+
