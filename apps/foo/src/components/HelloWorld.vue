@@ -1,6 +1,6 @@
 <template>
   <h1>Hello universe</h1>
-  <div @click="() => count += 1">
+  <div @click="() => (count += 1)">
     {{ count }}
   </div>
 </template>

@@ -1,3 +1,3 @@
 function vue2(): string {
-      return "example";
+  return "example";
 }
