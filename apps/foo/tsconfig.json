@@ -9,7 +9,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
 
-    /* Bundler mode */
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -25,6 +24,7 @@
   },
   "include": [
     "eslint.config.js",
+    "*.ts",
     "src/*.vue",
     "src/**/*.ts",
     "src/**/*.d.ts",

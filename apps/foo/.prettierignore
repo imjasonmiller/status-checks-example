@@ -1,0 +1,6 @@
+# Ignore all files
+*
+
+# With the exception of Vue 3 related files
+!*/
+!src/vue3/*

@@ -7,5 +7,6 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "test:unit": "vitest run --environment jsdom --passWithNoTests"
-  }
+  },
+  "prettier": "prettier-config"
 }
