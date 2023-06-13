@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "prettier-config",
+  "description": "Prettier configuration shared across the workspace",
+  "version": "0.0.1",
+  "main": ".prettierrc.json"
+}
