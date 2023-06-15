@@ -1,0 +1,18 @@
+# Build directories
+node_modules/
+dist/
+coverage/
+e2e-results/
+playwright-report/
+playwright/.cache/
+ci/
+
+# Environment variables
+.env
+
+# Editor directories
+.vscode/
+.idea
+
+# System files
+.DS_Store
