@@ -59,7 +59,7 @@ jobs:
       - name: "Ensure branch targets development"
         if: ${{ github.base_ref != 'development' }}
         run: exit 1
-        
+
       - name: "Checkout repository"
         uses: actions/checkout@v3
 
