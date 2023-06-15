@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: "Ensure branch targets development"
-        if: ${{ github.base_ref != 'development' }}
+        if: ${{ github.head_ref != 'development' && github.base_ref != 'development' }}
         run: exit 1
 
       - name: "Checkout repository"
