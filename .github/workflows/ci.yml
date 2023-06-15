@@ -56,6 +56,10 @@ jobs:
       matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
 
     steps:
+      - name: "Ensure branch targets development"
+        if: ${{ github.base_ref != 'development' }}
+        run: exit 1
+        
       - name: "Checkout repository"
         uses: actions/checkout@v3
 
